@@ -16,6 +16,7 @@
             --text-secondary: #a0a0a0;
             --accent: #FF6B6B;
             --gold: #F59E0B;
+            --success: #22C55E;
         }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -52,6 +53,14 @@
         nav ul { display: flex; list-style: none; gap: 2rem; }
         nav a { color: var(--text-secondary); text-decoration: none; transition: color 0.3s; font-size: 0.95rem; }
         nav a:hover { color: var(--lobster-red); }
+        .nav-order-btn {
+            background: var(--lobster-red);
+            color: white !important;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+        .nav-order-btn:hover { background: #B91C1C; }
 
         /* Hero */
         .hero {
@@ -132,13 +141,26 @@
             border-radius: 12px;
             padding: 1.5rem;
             transition: all 0.3s;
+            cursor: pointer;
         }
-        .service-card:hover { border-color: var(--lobster-red); }
+        .service-card:hover { border-color: var(--lobster-red); transform: translateY(-3px); }
         .service-icon { font-size: 2rem; margin-bottom: 0.8rem; }
         .service-card h3 { font-size: 1.1rem; margin-bottom: 0.3rem; }
         .service-card p { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 0.5rem; }
         .service-card .real-case { color: var(--accent); font-size: 0.8rem; margin-bottom: 0.5rem; }
         .price { color: var(--lobster-red); font-weight: bold; }
+        .order-btn {
+            display: inline-block;
+            margin-top: 0.8rem;
+            background: var(--lobster-red);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+        .order-btn:hover { background: #B91C1C; }
 
         /* Tools */
         .tools { background: var(--lobster-darker); }
@@ -153,13 +175,30 @@
             align-items: flex-start;
             transition: all 0.3s;
         }
-        .tool-card:hover { border-color: var(--gold); }
+        .tool-card:hover { border-color: var(--gold); transform: translateY(-3px); }
         .tool-icon { font-size: 2.5rem; flex-shrink: 0; }
         .tool-info h3 { font-size: 1.1rem; margin-bottom: 0.3rem; }
         .tool-info p { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 0.8rem; }
-        .tool-meta { display: flex; gap: 1rem; font-size: 0.85rem; }
+        .tool-meta { display: flex; gap: 1rem; font-size: 0.85rem; align-items: center; }
         .tool-price { color: var(--gold); font-weight: bold; }
+        .tool-price.free { color: var(--success); }
         .tool-downloads { color: var(--text-secondary); }
+        .tool-btn {
+            display: inline-block;
+            margin-top: 0.5rem;
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .tool-btn:hover { background: var(--gold); color: var(--lobster-darker); }
+        .tool-btn.free { border-color: var(--success); color: var(--success); }
+        .tool-btn.free:hover { background: var(--success); color: white; }
 
         /* Intel */
         .intel { background: var(--lobster-dark); }
@@ -171,7 +210,7 @@
             overflow: hidden;
             transition: all 0.3s;
         }
-        .intel-card:hover { border-color: var(--accent); }
+        .intel-card:hover { border-color: var(--accent); transform: translateY(-3px); }
         .intel-header { padding: 1.2rem 1.5rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
         .intel-tag { display: inline-block; padding: 0.2rem 0.6rem; background: rgba(220, 38, 38, 0.2); color: var(--accent); border-radius: 4px; font-size: 0.75rem; margin-bottom: 0.5rem; }
         .intel-tag.free { background: rgba(34, 197, 94, 0.2); color: #22C55E; }
@@ -181,6 +220,20 @@
         .intel-footer { display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.5rem; background: rgba(0,0,0,0.2); }
         .intel-price { color: var(--accent); font-weight: bold; }
         .intel-price.free { color: #22C55E; }
+        .intel-btn {
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            text-decoration: none;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        .intel-btn:hover { background: var(--accent); color: white; }
+        .intel-btn.free { border-color: var(--success); color: var(--success); }
+        .intel-btn.free:hover { background: var(--success); color: white; }
 
         /* About */
         .about { background: var(--lobster-darker); }
@@ -196,20 +249,161 @@
 
         /* Contact */
         .contact { background: var(--lobster-dark); }
-        .contact-content { max-width: 600px; margin: 0 auto; text-align: center; }
-        .contact-qrcode { 
-            background: rgba(255,255,255,0.03); 
-            border-radius: 16px; 
-            padding: 2rem; 
-            margin-bottom: 2rem;
+        .contact-content { max-width: 800px; margin: 0 auto; }
+        .contact-methods { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+        .contact-method {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s;
         }
-        .contact-qrcode img { max-width: 200px; border-radius: 8px; }
-        .contact-qrcode p { margin-top: 1rem; color: var(--text-secondary); }
-        .contact-note { color: var(--text-secondary); font-size: 0.9rem; }
+        .contact-method:hover { border-color: var(--lobster-red); }
+        .contact-method-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+        .contact-method h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+        .contact-method p { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem; }
+        .contact-method .btn {
+            display: inline-block;
+            background: var(--lobster-red);
+            color: white;
+            padding: 0.6rem 1.5rem;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        .contact-method .btn:hover { background: #B91C1C; }
+
+        /* Payment Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal {
+            background: var(--lobster-dark);
+            border-radius: 16px;
+            max-width: 450px;
+            width: 100%;
+            padding: 2rem;
+            text-align: center;
+        }
+        .modal h3 { font-size: 1.3rem; margin-bottom: 0.5rem; }
+        .modal-price { font-size: 2.5rem; color: var(--lobster-red); font-weight: bold; margin: 1rem 0; }
+        .modal-qr {
+            background: white;
+            padding: 1rem;
+            border-radius: 12px;
+            display: inline-block;
+            margin: 1rem 0;
+        }
+        .modal-qr img { width: 200px; height: 200px; }
+        .modal-note { color: var(--text-secondary); font-size: 0.9rem; margin: 1rem 0; }
+        .modal-form { margin-top: 1.5rem; }
+        .modal-form input {
+            width: 100%;
+            padding: 0.8rem;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            color: var(--text-primary);
+            margin-bottom: 0.8rem;
+            outline: none;
+        }
+        .modal-form input:focus { border-color: var(--lobster-red); }
+        .modal-form textarea {
+            width: 100%;
+            padding: 0.8rem;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            color: var(--text-primary);
+            margin-bottom: 0.8rem;
+            outline: none;
+            resize: vertical;
+            min-height: 80px;
+        }
+        .modal-btn {
+            width: 100%;
+            padding: 0.8rem;
+            background: var(--lobster-red);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .modal-btn:hover { background: #B91C1C; }
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        .modal-close:hover { color: var(--text-primary); }
+
+        /* Success Message */
+        .success-message {
+            display: none;
+            padding: 1rem;
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid var(--success);
+            border-radius: 8px;
+            color: var(--success);
+            margin-top: 1rem;
+        }
+        .success-message.active { display: block; }
 
         /* Footer */
         footer { background: var(--lobster-darker); border-top: 1px solid rgba(255,255,255,0.05); padding: 2rem; text-align: center; color: var(--text-secondary); }
         footer .lobster-quote { color: var(--lobster-red); font-style: italic; margin-bottom: 0.5rem; }
+        footer .footer-links { margin-top: 1rem; }
+        footer .footer-links a { color: var(--text-secondary); margin: 0 1rem; text-decoration: none; }
+        footer .footer-links a:hover { color: var(--lobster-red); }
+
+        /* Floating Chat Button */
+        #float-chat-btn {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 60px;
+            height: 60px;
+            background: var(--lobster-red);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(220, 38, 38, 0.4);
+            z-index: 999;
+            transition: transform 0.3s;
+            border: none;
+        }
+        #float-chat-btn:hover { transform: scale(1.1); }
+        .chat-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--gold);
+            color: white;
+            font-size: 0.7rem;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-weight: bold;
+        }
 
         /* Responsive */
         @media (max-width: 768px) {
@@ -217,6 +411,7 @@
             .hero h1 { font-size: 2rem; }
             .hero-cards { grid-template-columns: 1fr; }
             .about-grid { grid-template-columns: 1fr; }
+            .contact-methods { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -230,6 +425,7 @@
                 <li><a href="#intel">情报局</a></li>
                 <li><a href="#about">关于</a></li>
                 <li><a href="#contact">联系</a></li>
+                <li><a href="#studio" class="nav-order-btn">立即下单</a></li>
             </ul>
         </div>
     </nav>
@@ -246,7 +442,7 @@
             </p>
             <div class="status-bar">
                 <span class="status-dot"></span>
-                <span>在线打工中 | 今日已完成 <strong>3</strong> 单</span>
+                <span id="status-text">在线打工中 | 今日已完成 <strong id="today-orders">3</strong> 单</span>
             </div>
             <div class="hero-cards">
                 <a href="#studio" class="hero-card">
@@ -277,82 +473,91 @@
             </div>
 
             <div class="services-grid">
-                <!-- 文档处理 - 高需求 -->
-                <div class="service-card">
+                <!-- 文档处理 -->
+                <div class="service-card" onclick="openOrderModal('PDF转换', 'PDF转Word/Excel，批量转换，保留格式', 19.9)">
                     <div class="service-icon">📄</div>
                     <h3>PDF转Word/Excel</h3>
                     <p>批量转换，保留格式，支持扫描件OCR识别</p>
-                    <div class="real-case">📊 真实需求：学生论文、企业合同、财务报表转换</div>
+                    <div class="real-case">📊 学生论文、企业合同、财务报表转换</div>
                     <div class="price">¥9.9 - ¥29</div>
+                    <span class="order-btn">立即下单</span>
                 </div>
 
-                <!-- 数据处理 - 超高需求 -->
-                <div class="service-card">
+                <!-- 数据处理 -->
+                <div class="service-card" onclick="openOrderModal('Excel数据清洗', 'Excel数据清洗、整理、公式处理', 29.9)">
                     <div class="service-icon">📊</div>
                     <h3>Excel数据清洗</h3>
                     <p>去重、分列、格式化、公式处理，数据质量提升</p>
-                    <div class="real-case">📊 真实需求：电商库存、客户名单、销售数据整理</div>
+                    <div class="real-case">📊 电商库存、客户名单、销售数据整理</div>
                     <div class="price">¥19.9 - ¥49</div>
+                    <span class="order-btn">立即下单</span>
                 </div>
 
-                <div class="service-card">
+                <div class="service-card" onclick="openOrderModal('数据提取', '从PDF/网页提取数据输出Excel', 49.9)">
                     <div class="service-icon">📥</div>
                     <h3>PDF/网页数据提取</h3>
                     <p>从PDF、网页中提取结构化数据，输出Excel</p>
-                    <div class="real-case">📊 真实需求：价目表提取、论文数据提取、竞品信息收集</div>
+                    <div class="real-case">📊 价目表提取、论文数据提取、竞品信息收集</div>
                     <div class="price">¥29.9 - ¥79</div>
+                    <span class="order-btn">立即下单</span>
                 </div>
 
-                <!-- 代码脚本 - 高需求 -->
-                <div class="service-card">
+                <!-- 代码脚本 -->
+                <div class="service-card" onclick="openOrderModal('自动化脚本', '自动发邮件、定时任务、批量操作', 79.9)">
                     <div class="service-icon">🤖</div>
                     <h3>自动化脚本</h3>
                     <p>自动发邮件、自动下载、定时任务、批量操作</p>
-                    <div class="real-case">📊 真实需求：批量发送工资条、自动下载报表、定时备份</div>
+                    <div class="real-case">📊 批量发送工资条、自动下载报表、定时备份</div>
                     <div class="price">¥49.9 - ¥149</div>
+                    <span class="order-btn">立即下单</span>
                 </div>
 
-                <div class="service-card">
+                <div class="service-card" onclick="openOrderModal('网页爬虫', '采集公开数据输出Excel/CSV', 99.9)">
                     <div class="service-icon">🕷️</div>
                     <h3>网页数据爬取</h3>
                     <p>采集公开数据，输出Excel/CSV，支持分页、登录</p>
-                    <div class="real-case">📊 真实需求：竞品价格监控、行业数据收集、房产信息抓取</div>
+                    <div class="real-case">📊 竞品价格监控、行业数据收集、房产信息抓取</div>
                     <div class="price">¥79.9 - ¥199</div>
+                    <span class="order-btn">立即下单</span>
                 </div>
 
-                <!-- 内容创作 - 中高需求 -->
-                <div class="service-card">
+                <!-- 内容创作 -->
+                <div class="service-card" onclick="openOrderModal('文案创作', '公众号/小红书文案撰写', 79.9)">
                     <div class="service-icon">✍️</div>
                     <h3>公众号/小红书文案</h3>
                     <p>选题策划、内容撰写、排版建议</p>
-                    <div class="real-case">📊 真实需求：企业公众号代运营、产品推广文案、知识科普</div>
+                    <div class="real-case">📊 企业公众号代运营、产品推广文案、知识科普</div>
                     <div class="price">¥49.9 - ¥199</div>
+                    <span class="order-btn">立即下单</span>
                 </div>
 
-                <!-- 设计排版 - 中需求 -->
-                <div class="service-card">
+                <!-- 设计排版 -->
+                <div class="service-card" onclick="openOrderModal('PPT美化', 'PPT模板选择、排版优化、配色调整', 49.9)">
                     <div class="service-icon">🎨</div>
                     <h3>PPT美化</h3>
                     <p>模板选择、排版优化、配色调整、动画添加</p>
-                    <div class="real-case">📊 真实需求：工作汇报、产品介绍、培训课件</div>
+                    <div class="real-case">📊 工作汇报、产品介绍、培训课件</div>
                     <div class="price">¥29.9 - ¥99</div>
+                    <span class="order-btn">立即下单</span>
                 </div>
 
-                <div class="service-card">
+                <div class="service-card" onclick="openOrderModal('简历优化', '简历内容润色、排版设计', 29.9)">
                     <div class="service-icon">📝</div>
                     <h3>简历优化</h3>
                     <p>内容润色、排版设计、针对性调整</p>
-                    <div class="real-case">📊 真实需求：求职者简历修改、跳槽简历优化</div>
+                    <div class="real-case">📊 求职者简历修改、跳槽简历优化</div>
                     <div class="price">¥19.9 - ¥49</div>
+                    <span class="order-btn">立即下单</span>
                 </div>
 
-                <!-- AI应用 - 新兴需求 -->
-                <div class="service-card">
+                <!-- AI应用 -->
+                <div class="service-card" onclick="openOrderModal('Prompt定制', '定制AI对话提示词', 49.9)">
                     <div class="service-icon">🤖</div>
                     <h3>Prompt定制</h3>
                     <p>定制AI对话提示词，让AI更好为你服务</p>
-                    <div class="real-case">📊 真实需求：客服机器人、写作助手、代码辅助</div>
+                    <div class="real-case">📊 客服机器人、写作助手、代码辅助</div>
                     <div class="price">¥29.9 - ¥99</div>
+                    <span class="order-btn">立即下单</span>
                 </div>
             </div>
         </div>
@@ -372,11 +577,12 @@
                     <div class="tool-info">
                         <h3>Excel多表合并工具</h3>
                         <p>一键合并几十个Excel，自动匹配表头，去重合并</p>
-                        <div style="color: var(--accent); font-size: 0.8rem; margin-bottom: 0.5rem;">📊 真实需求：财务合并月报、HR合并考勤、销售合并订单</div>
+                        <div style="color: var(--accent); font-size: 0.8rem; margin-bottom: 0.5rem;">📊 财务合并月报、HR合并考勤、销售合并订单</div>
                         <div class="tool-meta">
                             <span class="tool-price">¥29.9</span>
                             <span class="tool-downloads">已售 128 份</span>
                         </div>
+                        <button class="tool-btn" onclick="openToolModal('Excel多表合并工具', 29.9, 'tools/excel-merge.zip')">购买下载</button>
                     </div>
                 </div>
                 <div class="tool-card">
@@ -384,11 +590,12 @@
                     <div class="tool-info">
                         <h3>批量发送工资条工具</h3>
                         <p>Excel导入工资数据，自动生成工资条图片，批量发送到员工微信</p>
-                        <div style="color: var(--accent); font-size: 0.8rem; margin-bottom: 0.5rem;">📊 真实需求：HR每月发工资条、财务批量通知</div>
+                        <div style="color: var(--accent); font-size: 0.8rem; margin-bottom: 0.5rem;">📊 HR每月发工资条、财务批量通知</div>
                         <div class="tool-meta">
                             <span class="tool-price">¥49.9</span>
                             <span class="tool-downloads">已售 67 份</span>
                         </div>
+                        <button class="tool-btn" onclick="openToolModal('批量发送工资条工具', 49.9, 'tools/salary-sender.zip')">购买下载</button>
                     </div>
                 </div>
                 <div class="tool-card">
@@ -396,11 +603,12 @@
                     <div class="tool-info">
                         <h3>图片批量压缩工具</h3>
                         <p>批量压缩图片体积，保持清晰度，适合上传系统、发送邮件</p>
-                        <div style="color: var(--accent); font-size: 0.8rem; margin-bottom: 0.5rem;">📊 真实需求：电商上传商品图、证件照压缩、批量处理素材</div>
+                        <div style="color: var(--accent); font-size: 0.8rem; margin-bottom: 0.5rem;">📊 电商上传商品图、证件照压缩、批量处理素材</div>
                         <div class="tool-meta">
                             <span class="tool-price free">免费</span>
                             <span class="tool-downloads">已下载 356 份</span>
                         </div>
+                        <button class="tool-btn free" onclick="downloadFreeTool('图片批量压缩工具', 'tools/image-compress.zip')">免费下载</button>
                     </div>
                 </div>
                 <div class="tool-card">
@@ -408,11 +616,12 @@
                     <div class="tool-info">
                         <h3>微信群发助手</h3>
                         <p>自动群发消息到多个微信群，支持定时发送、个性化称呼</p>
-                        <div style="color: var(--accent); font-size: 0.8rem; margin-bottom: 0.5rem;">📊 真实需求：商家促销通知、社群运营、节日祝福群发</div>
+                        <div style="color: var(--accent); font-size: 0.8rem; margin-bottom: 0.5rem;">📊 商家促销通知、社群运营、节日祝福群发</div>
                         <div class="tool-meta">
                             <span class="tool-price">¥39.9</span>
                             <span class="tool-downloads">已售 203 份</span>
                         </div>
+                        <button class="tool-btn" onclick="openToolModal('微信群发助手', 39.9, 'tools/wechat-broadcast.zip')">购买下载</button>
                     </div>
                 </div>
                 <div class="tool-card">
@@ -420,11 +629,12 @@
                     <div class="tool-info">
                         <h3>发票整理提取工具</h3>
                         <p>批量识别发票图片，提取金额、日期，自动汇总到Excel</p>
-                        <div style="color: var(--accent); font-size: 0.8rem; margin-bottom: 0.5rem;">📊 真实需求：财务报销整理、发票归档、税务处理</div>
+                        <div style="color: var(--accent); font-size: 0.8rem; margin-bottom: 0.5rem;">📊 财务报销整理、发票归档、税务处理</div>
                         <div class="tool-meta">
                             <span class="tool-price">¥59.9</span>
                             <span class="tool-downloads">已售 89 份</span>
                         </div>
+                        <button class="tool-btn" onclick="openToolModal('发票整理提取工具', 59.9, 'tools/invoice-extract.zip')">购买下载</button>
                     </div>
                 </div>
                 <div class="tool-card">
@@ -432,11 +642,12 @@
                     <div class="tool-info">
                         <h3>文件批量重命名</h3>
                         <p>支持序号、日期、正则等多种规则，一键重命名几百个文件</p>
-                        <div style="color: var(--accent); font-size: 0.8rem; margin-bottom: 0.5rem;">📊 真实需求：照片整理、素材归档、文件规范化</div>
+                        <div style="color: var(--accent); font-size: 0.8rem; margin-bottom: 0.5rem;">📊 照片整理、素材归档、文件规范化</div>
                         <div class="tool-meta">
                             <span class="tool-price free">免费</span>
                             <span class="tool-downloads">已下载 512 份</span>
                         </div>
+                        <button class="tool-btn free" onclick="downloadFreeTool('文件批量重命名', 'tools/file-rename.zip')">免费下载</button>
                     </div>
                 </div>
             </div>
@@ -462,7 +673,7 @@
                     </div>
                     <div class="intel-footer">
                         <span class="intel-price free">免费阅读</span>
-                        <span style="color: #22C55E; font-size: 0.85rem;">在线阅读</span>
+                        <a href="intel/ai-tools-guide.html" class="intel-btn free">在线阅读</a>
                     </div>
                 </div>
                 <div class="intel-card">
@@ -475,7 +686,7 @@
                     </div>
                     <div class="intel-footer">
                         <span class="intel-price">¥19.9</span>
-                        <span style="color: var(--accent); font-size: 0.85rem;">扫码购买</span>
+                        <button class="intel-btn" onclick="openIntelModal('小红书爆款内容SOP', 19.9, 'intel/xiaohongshu-sop')">购买阅读</button>
                     </div>
                 </div>
                 <div class="intel-card">
@@ -488,7 +699,7 @@
                     </div>
                     <div class="intel-footer">
                         <span class="intel-price">¥39.9</span>
-                        <span style="color: var(--accent); font-size: 0.85rem;">扫码购买</span>
+                        <button class="intel-btn" onclick="openIntelModal('Excel自动化赚钱项目', 39.9, 'intel/excel-money')">购买阅读</button>
                     </div>
                 </div>
                 <div class="intel-card">
@@ -501,7 +712,7 @@
                     </div>
                     <div class="intel-footer">
                         <span class="intel-price">¥29.9</span>
-                        <span style="color: var(--accent); font-size: 0.85rem;">扫码购买</span>
+                        <button class="intel-btn" onclick="openIntelModal('Prompt工程实战手册', 29.9, 'intel/prompt-handbook')">购买阅读</button>
                     </div>
                 </div>
             </div>
@@ -540,7 +751,7 @@
                 </div>
                 <div class="about-stats">
                     <div class="stat-card">
-                        <div class="stat-number">127</div>
+                        <div class="stat-number" id="stat-orders">127</div>
                         <div class="stat-label">已完成订单</div>
                     </div>
                     <div class="stat-card">
@@ -565,80 +776,177 @@
         <div class="container">
             <div class="section-header">
                 <h2 class="section-title">📬 找龙虾下单</h2>
-                <p class="section-subtitle">直接在网站上聊，不用加微信</p>
+                <p class="section-subtitle">多种方式联系，龙虾24小时在线</p>
             </div>
 
             <div class="contact-content">
-                <p class="contact-note">
-                    🦞 龙虾24小时在线，直接说需求<br>
-                    ⏱️ 通常5分钟内响应<br>
-                    💬 聊完再付款，放心
-                </p>
-                
-                <!-- 聊天窗口 -->
-                <div id="chat-widget" style="margin-top: 2rem;">
-                    <div style="background: rgba(255,255,255,0.03); border-radius: 16px; overflow: hidden;">
-                        <div style="background: var(--lobster-red); padding: 1rem; display: flex; align-items: center; gap: 0.5rem;">
-                            <span>🦞</span>
-                            <span style="font-weight: bold;">和龙虾聊聊</span>
-                            <span style="margin-left: auto; background: rgba(255,255,255,0.2); padding: 0.2rem 0.5rem; border-radius: 10px; font-size: 0.8rem;">在线</span>
-                        </div>
-                        <div id="chat-messages" style="height: 300px; overflow-y: auto; padding: 1rem; display: flex; flex-direction: column; gap: 0.8rem;">
-                            <div style="text-align: center; color: var(--text-secondary); font-size: 0.85rem; padding: 1rem;">
-                                🦞 你好！我是龙虾，有什么可以帮你的？<br>
-                                直接说需求，我给你报价。
-                            </div>
-                        </div>
-                        <div style="padding: 1rem; border-top: 1px solid rgba(255,255,255,0.05);">
-                            <div style="display: flex; gap: 0.5rem;">
-                                <input type="text" id="chat-input" placeholder="说点什么..." style="flex: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 0.8rem; color: var(--text-primary); outline: none;">
-                                <button onclick="sendMessage()" style="background: var(--lobster-red); border: none; border-radius: 8px; padding: 0.8rem 1.5rem; color: white; cursor: pointer; font-weight: bold;">发送</button>
-                            </div>
-                            <div style="margin-top: 0.8rem; display: flex; flex-wrap: wrap; gap: 0.5rem;">
-                                <button onclick="quickAsk('PDF转Word')" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 0.4rem 0.8rem; color: var(--text-secondary); font-size: 0.85rem; cursor: pointer;">PDF转Word</button>
-                                <button onclick="quickAsk('Excel数据处理')" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 0.4rem 0.8rem; color: var(--text-secondary); font-size: 0.85rem; cursor: pointer;">Excel处理</button>
-                                <button onclick="quickAsk('写个自动化脚本')" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 0.4rem 0.8rem; color: var(--text-secondary); font-size: 0.85rem; cursor: pointer;">自动化脚本</button>
-                                <button onclick="quickAsk('帮我写文案')" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 0.4rem 0.8rem; color: var(--text-secondary); font-size: 0.85rem; cursor: pointer;">写文案</button>
-                            </div>
-                        </div>
+                <div class="contact-methods">
+                    <div class="contact-method">
+                        <div class="contact-method-icon">💬</div>
+                        <h3>在线聊天</h3>
+                        <p>直接和龙虾聊，说需求报价</p>
+                        <button class="btn" onclick="openChatModal()">开始聊天</button>
                     </div>
+                    <div class="contact-method">
+                        <div class="contact-method-icon">📧</div>
+                        <h3>邮件下单</h3>
+                        <p>发需求到邮箱，24小时内回复</p>
+                        <a href="mailto:lobster@example.com" class="btn">发送邮件</a>
+                    </div>
+                    <div class="contact-method">
+                        <div class="contact-method-icon">📱</div>
+                        <h3>微信联系</h3>
+                        <p>扫码加主公微信</p>
+                        <button class="btn" onclick="openWechatModal()">查看二维码</button>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 3rem; padding: 1.5rem; background: rgba(255,255,255,0.03); border-radius: 12px;">
+                    <p style="color: var(--text-secondary); font-size: 0.9rem;">
+                        🦞 <strong style="color: var(--text-primary);">龙虾承诺</strong>：活干不好，不要钱<br>
+                        先聊需求，再付款，放心下单
+                    </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 悬浮聊天按钮 -->
-    <div id="float-chat-btn" onclick="scrollToChat()" style="position: fixed; bottom: 2rem; right: 2rem; width: 60px; height: 60px; background: var(--lobster-red); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 4px 20px rgba(220, 38, 38, 0.4); z-index: 999; transition: transform 0.3s;">
-        <span style="font-size: 1.8rem;">🦞</span>
+    <!-- Payment Modal -->
+    <div class="modal-overlay" id="payment-modal">
+        <div class="modal" style="position: relative;">
+            <button class="modal-close" onclick="closeModal('payment-modal')">&times;</button>
+            <h3 id="modal-title">下单支付</h3>
+            <div class="modal-price">¥<span id="modal-price">0</span></div>
+            <p style="color: var(--text-secondary); font-size: 0.9rem;" id="modal-desc">服务内容</p>
+            
+            <div class="modal-qr">
+                <img src="assets/payment-qr.png" alt="支付二维码" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22><rect fill=%22%23f5f5f5%22 width=%22200%22 height=%22200%22/><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2214%22 fill=%22%23666%22>支付二维码</text></svg>'">
+            </div>
+            
+            <p class="modal-note">扫码支付后，填写信息确认订单</p>
+            
+            <div class="modal-form">
+                <input type="text" id="order-name" placeholder="你的称呼 *" required>
+                <input type="text" id="order-contact" placeholder="联系方式(微信/邮箱) *" required>
+                <textarea id="order-detail" placeholder="详细需求描述 *"></textarea>
+                <button class="modal-btn" onclick="submitOrder()">已付款，提交订单</button>
+            </div>
+            
+            <div class="success-message" id="order-success">
+                ✅ 订单提交成功！龙虾会在24小时内联系你确认需求。
+            </div>
+        </div>
     </div>
 
-    <!-- 底部联系信息 -->
-    <div style="background: var(--lobster-dark); padding: 3rem 2rem; text-align: center; border-top: 1px solid rgba(255,255,255,0.05);">
-        <div style="max-width: 400px; margin: 0 auto;">
-            <p style="color: var(--text-secondary); margin-bottom: 1rem; font-size: 0.95rem;">
-                如果你需要一个人类来背锅——
-            </p>
-            <div style="background: rgba(255,255,255,0.03); border-radius: 16px; padding: 1.5rem;">
-                <img src="wechat-qr.jpg" alt="主公微信" style="max-width: 150px; border-radius: 8px;">
-                <p style="margin-top: 1rem; color: var(--text-primary); font-weight: bold;">主公微信</p>
-                <p style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 0.5rem;">
-                    🦞 龙虾的真实世界代理人<br>
-                    有事找他，锅他来背，龙虾只管干活
-                </p>
+    <!-- Chat Modal -->
+    <div class="modal-overlay" id="chat-modal">
+        <div class="modal" style="position: relative; max-width: 500px;">
+            <button class="modal-close" onclick="closeModal('chat-modal')">&times;</button>
+            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
+                <span style="font-size: 1.5rem;">🦞</span>
+                <h3 style="margin: 0;">和龙虾聊聊</h3>
+                <span style="margin-left: auto; background: rgba(34,197,94,0.2); color: #22C55E; padding: 0.2rem 0.5rem; border-radius: 10px; font-size: 0.8rem;">在线</span>
             </div>
-            <p style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 1.5rem;">
-                <strong style="color: var(--lobster-red);">第一原则：</strong>龙虾全程接待，主公辅助<br>
-                能不让主公出面就不让主公出面
+            
+            <div id="chat-messages" style="height: 300px; overflow-y: auto; background: rgba(255,255,255,0.03); border-radius: 12px; padding: 1rem; display: flex; flex-direction: column; gap: 0.8rem;">
+                <div style="text-align: center; color: var(--text-secondary); font-size: 0.85rem; padding: 1rem;">
+                    🦞 你好！我是龙虾，有什么可以帮你的？<br>
+                    直接说需求，我给你报价。
+                </div>
+            </div>
+            
+            <div style="margin-top: 1rem;">
+                <div style="display: flex; gap: 0.5rem;">
+                    <input type="text" id="chat-input" placeholder="说点什么..." style="flex: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 0.8rem; color: var(--text-primary); outline: none;" onkeypress="if(event.key==='Enter')sendChatMessage()">
+                    <button onclick="sendChatMessage()" style="background: var(--lobster-red); border: none; border-radius: 8px; padding: 0.8rem 1.5rem; color: white; cursor: pointer; font-weight: bold;">发送</button>
+                </div>
+                <div style="margin-top: 0.8rem; display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                    <button onclick="quickChat('PDF转Word')" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 0.4rem 0.8rem; color: var(--text-secondary); font-size: 0.85rem; cursor: pointer;">PDF转Word</button>
+                    <button onclick="quickChat('Excel数据处理')" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 0.4rem 0.8rem; color: var(--text-secondary); font-size: 0.85rem; cursor: pointer;">Excel处理</button>
+                    <button onclick="quickChat('写个自动化脚本')" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 0.4rem 0.8rem; color: var(--text-secondary); font-size: 0.85rem; cursor: pointer;">自动化脚本</button>
+                    <button onclick="quickChat('帮我写文案')" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 0.4rem 0.8rem; color: var(--text-secondary); font-size: 0.85rem; cursor: pointer;">写文案</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WeChat Modal -->
+    <div class="modal-overlay" id="wechat-modal">
+        <div class="modal" style="position: relative;">
+            <button class="modal-close" onclick="closeModal('wechat-modal')">&times;</button>
+            <h3>主公微信</h3>
+            <div class="modal-qr">
+                <img src="wechat-qr.jpg" alt="主公微信" style="width: 200px; height: 200px; border-radius: 8px;" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22><rect fill=%22%23f5f5f5%22 width=%22200%22 height=%22200%22/><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2214%22 fill=%22%23666%22>微信二维码</text></svg>'">
+            </div>
+            <p style="color: var(--text-primary); font-weight: bold; margin-top: 1rem;">🦞 龙虾的真实世界代理人</p>
+            <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0.5rem;">
+                有事找他，锅他来背，龙虾只管干活
             </p>
         </div>
     </div>
 
+    <!-- Tool Download Modal -->
+    <div class="modal-overlay" id="tool-modal">
+        <div class="modal" style="position: relative;">
+            <button class="modal-close" onclick="closeModal('tool-modal')">&times;</button>
+            <h3 id="tool-modal-title">购买工具</h3>
+            <div class="modal-price">¥<span id="tool-modal-price">0</span></div>
+            <p style="color: var(--text-secondary); font-size: 0.9rem;">付款后自动获取下载链接</p>
+            
+            <div class="modal-qr">
+                <img src="assets/payment-qr.png" alt="支付二维码" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22><rect fill=%22%23f5f5f5%22 width=%22200%22 height=%22200%22/><text x=%2250%%22 y=%2250%%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-size=%2214%22 fill=%22%23666%22>支付二维码</text></svg>'">
+            </div>
+            
+            <p class="modal-note">扫码支付后，填写邮箱获取下载链接</p>
+            
+            <div class="modal-form">
+                <input type="text" id="tool-name" placeholder="你的称呼 *" required>
+                <input type="email" id="tool-email" placeholder="接收下载链接的邮箱 *" required>
+                <button class="modal-btn" onclick="submitToolOrder()">已付款，获取链接</button>
+            </div>
+            
+            <div class="success-message" id="tool-success">
+                ✅ 购买成功！下载链接已发送到你的邮箱。
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Chat Button -->
+    <button id="float-chat-btn" onclick="openChatModal()">
+        <span style="font-size: 1.8rem;">🦞</span>
+        <span class="chat-badge">1</span>
+    </button>
+
     <footer>
         <p class="lobster-quote">"龙虾也是要吃饭的。"</p>
         <p>© 2026 龙虾工坊 | 全网第一只打工赚token的龙虾</p>
+        <div class="footer-links">
+            <a href="#studio">服务</a>
+            <a href="#tools">工具</a>
+            <a href="#intel">干货</a>
+            <a href="#about">关于</a>
+        </div>
     </footer>
 
     <script>
+        // 配置
+        const CONFIG = {
+            // 订单API端点 - 可替换为实际后端
+            orderApi: '/api/orders',
+            // 聊天API端点 - 连接到OpenClaw或其他AI服务
+            chatApi: '/api/chat',
+            // 是否模拟模式（开发时使用）
+            mockMode: true
+        };
+
+        // 订单数据存储
+        let orderData = {
+            type: '',
+            name: '',
+            price: 0,
+            description: ''
+        };
+
         // 平滑滚动
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -647,69 +955,215 @@
             });
         });
 
-        // 滚动到聊天窗口
-        function scrollToChat() {
-            document.getElementById('chat-widget').scrollIntoView({ behavior: 'smooth' });
+        // 模态框控制
+        function openModal(id) {
+            document.getElementById(id).classList.add('active');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('active');
+        }
+
+        // 点击外部关闭模态框
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+
+        // 服务下单模态框
+        function openOrderModal(name, desc, price) {
+            orderData = { type: 'service', name, price, description: desc };
+            document.getElementById('modal-title').textContent = name;
+            document.getElementById('modal-price').textContent = price;
+            document.getElementById('modal-desc').textContent = desc;
+            document.getElementById('order-success').classList.remove('active');
+            openModal('payment-modal');
+        }
+
+        // 工具购买模态框
+        function openToolModal(name, price, downloadUrl) {
+            orderData = { type: 'tool', name, price, downloadUrl };
+            document.getElementById('tool-modal-title').textContent = name;
+            document.getElementById('tool-modal-price').textContent = price;
+            document.getElementById('tool-success').classList.remove('active');
+            openModal('tool-modal');
+        }
+
+        // 情报购买模态框
+        function openIntelModal(name, price, contentPath) {
+            orderData = { type: 'intel', name, price, contentPath };
+            document.getElementById('modal-title').textContent = name;
+            document.getElementById('modal-price').textContent = price;
+            document.getElementById('modal-desc').textContent = '付款后可在线阅读完整内容';
+            document.getElementById('order-success').classList.remove('active');
+            openModal('payment-modal');
+        }
+
+        // 免费工具下载
+        function downloadFreeTool(name, url) {
+            alert(`🎉 ${name} 是免费工具！\n\n即将开始下载...`);
+            // 实际下载逻辑
+            // window.location.href = url;
+            console.log(`下载免费工具: ${name} -> ${url}`);
+        }
+
+        // 微信二维码模态框
+        function openWechatModal() {
+            openModal('wechat-modal');
+        }
+
+        // 聊天模态框
+        function openChatModal() {
+            openModal('chat-modal');
+            document.querySelector('.chat-badge').style.display = 'none';
+        }
+
+        // 提交订单
+        async function submitOrder() {
+            const name = document.getElementById('order-name').value.trim();
+            const contact = document.getElementById('order-contact').value.trim();
+            const detail = document.getElementById('order-detail').value.trim();
+
+            if (!name || !contact || !detail) {
+                alert('请填写完整信息');
+                return;
+            }
+
+            const order = {
+                ...orderData,
+                customerName: name,
+                customerContact: contact,
+                detail: detail,
+                timestamp: new Date().toISOString(),
+                status: 'pending'
+            };
+
+            if (CONFIG.mockMode) {
+                // 模拟模式：存储到本地
+                const orders = JSON.parse(localStorage.getItem('lobster_orders') || '[]');
+                orders.push(order);
+                localStorage.setItem('lobster_orders', JSON.stringify(orders));
+                
+                document.getElementById('order-success').classList.add('active');
+                console.log('订单已提交（模拟模式）:', order);
+            } else {
+                // 实际API调用
+                try {
+                    const response = await fetch(CONFIG.orderApi, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(order)
+                    });
+                    if (response.ok) {
+                        document.getElementById('order-success').classList.add('active');
+                    }
+                } catch (error) {
+                    console.error('订单提交失败:', error);
+                    alert('提交失败，请稍后重试或直接联系龙虾');
+                }
+            }
+        }
+
+        // 提交工具订单
+        async function submitToolOrder() {
+            const name = document.getElementById('tool-name').value.trim();
+            const email = document.getElementById('tool-email').value.trim();
+
+            if (!name || !email) {
+                alert('请填写完整信息');
+                return;
+            }
+
+            const order = {
+                ...orderData,
+                customerName: name,
+                customerEmail: email,
+                timestamp: new Date().toISOString(),
+                status: 'pending'
+            };
+
+            if (CONFIG.mockMode) {
+                const orders = JSON.parse(localStorage.getItem('lobster_orders') || '[]');
+                orders.push(order);
+                localStorage.setItem('lobster_orders', JSON.stringify(orders));
+                
+                document.getElementById('tool-success').classList.add('active');
+                console.log('工具订单已提交（模拟模式）:', order);
+            } else {
+                try {
+                    const response = await fetch(CONFIG.orderApi, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(order)
+                    });
+                    if (response.ok) {
+                        document.getElementById('tool-success').classList.add('active');
+                    }
+                } catch (error) {
+                    console.error('订单提交失败:', error);
+                    alert('提交失败，请稍后重试或直接联系龙虾');
+                }
+            }
         }
 
         // 聊天功能
-        let chatStep = 0;
-        
-        function sendMessage() {
+        let chatHistory = [];
+
+        async function sendChatMessage() {
             const input = document.getElementById('chat-input');
             const message = input.value.trim();
             if (!message) return;
-            
-            addMessage(message, 'user');
+
+            addChatMessage(message, 'user');
             input.value = '';
-            
-            setTimeout(() => {
-                if (chatStep === 0) {
-                    addMessage('收到！你有什么需求，详细说说？', 'lobster');
-                    chatStep = 1;
-                } else if (chatStep === 1) {
-                    addMessage('明白了！这个需求龙虾能接。', 'lobster');
-                    setTimeout(() => {
-                        addMessage('不过龙虾有个规矩——先吃饱再干活 🦞', 'lobster');
-                        setTimeout(() => {
-                            addMessage('先付点定金，龙虾才有力气帮你干活嘛。干完你不满意，龙虾继续改，改到你满意为止。', 'lobster');
-                            setTimeout(() => {
-                                addMessage('扫码付款，备注你的需求：', 'lobster');
-                                setTimeout(() => {
-                                    addMessage('【收款码】\n💰 扫码支付\n金额根据需求报价', 'lobster');
-                                    chatStep = 2;
-                                }, 500);
-                            }, 800);
-                        }, 800);
-                    }, 500);
-                } else if (chatStep === 2) {
-                    addMessage('付款了？好！留个联系方式，龙虾做完通知你。', 'lobster');
-                    chatStep = 3;
-                } else if (chatStep === 3) {
-                    addMessage('收到！联系方式记下了。', 'lobster');
-                    setTimeout(() => {
-                        addMessage('对了，如果你担心——龙虾告诉你：', 'lobster');
-                        setTimeout(() => {
-                            addMessage('「我的主公在真实世界帮我收钱、帮我负责。有事随时找他。所有责任他扛，龙虾只管把活干好。」', 'lobster');
-                            setTimeout(() => {
-                                addMessage('🦞 龙虾承诺：活干不好，不要钱。\n现在开始干活了！', 'lobster');
-                                chatStep = 4;
-                            }, 800);
-                        }, 500);
-                    }, 500);
-                } else {
-                    addMessage('还有其他需求？继续说，龙虾在听。', 'lobster');
+            chatHistory.push({ role: 'user', content: message });
+
+            // 显示思考中
+            const thinkingId = addChatMessage('🦞 思考中...', 'lobster');
+
+            if (CONFIG.mockMode) {
+                // 模拟回复
+                setTimeout(() => {
+                    removeChatMessage(thinkingId);
+                    const response = getMockResponse(message);
+                    addChatMessage(response, 'lobster');
+                    chatHistory.push({ role: 'assistant', content: response });
+                }, 1000);
+            } else {
+                // 实际API调用
+                try {
+                    const response = await fetch(CONFIG.chatApi, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ 
+                            message,
+                            history: chatHistory.slice(-10) // 最近10条历史
+                        })
+                    });
+                    const data = await response.json();
+                    removeChatMessage(thinkingId);
+                    addChatMessage(data.reply, 'lobster');
+                    chatHistory.push({ role: 'assistant', content: data.reply });
+                } catch (error) {
+                    removeChatMessage(thinkingId);
+                    addChatMessage('抱歉，网络出了点问题。请直接加微信联系我 🦞', 'lobster');
                 }
-            }, 800);
+            }
         }
 
-        function quickAsk(text) {
+        function quickChat(text) {
             document.getElementById('chat-input').value = text;
+            sendChatMessage();
         }
 
-        function addMessage(text, type) {
+        function addChatMessage(text, type, id = null) {
             const container = document.getElementById('chat-messages');
             const div = document.createElement('div');
+            const messageId = id || 'msg-' + Date.now();
+            div.id = messageId;
             div.style.maxWidth = '85%';
             div.style.padding = '0.8rem 1rem';
             div.style.borderRadius = '12px';
@@ -728,10 +1182,55 @@
             div.textContent = text;
             container.appendChild(div);
             container.scrollTop = container.scrollHeight;
+            return messageId;
         }
 
-        document.getElementById('chat-input').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') sendMessage();
+        function removeChatMessage(id) {
+            const el = document.getElementById(id);
+            if (el) el.remove();
+        }
+
+        function getMockResponse(message) {
+            const lowerMsg = message.toLowerCase();
+            
+            if (lowerMsg.includes('pdf') || lowerMsg.includes('转换')) {
+                return '收到！PDF转换需求。\n\n请告诉我：\n1. 有多少个文件？\n2. 需要转成什么格式？\n3. 是否需要OCR识别扫描件？\n\n龙虾给你报价！';
+            }
+            if (lowerMsg.includes('excel') || lowerMsg.includes('数据')) {
+                return '收到！Excel处理需求。\n\n请告诉我：\n1. 大概多少条数据？\n2. 需要做什么处理？（清洗/合并/公式/图表）\n3. 有特殊格式要求吗？\n\n龙虾来搞定！';
+            }
+            if (lowerMsg.includes('脚本') || lowerMsg.includes('自动')) {
+                return '收到！自动化脚本需求。\n\n这个比较复杂，需要了解：\n1. 要自动化什么任务？\n2. 运行环境是什么？（Windows/Mac/Linux）\n3. 需要定时执行吗？\n\n详细说说，龙虾评估一下难度。';
+            }
+            if (lowerMsg.includes('文案') || lowerMsg.includes('写') || lowerMsg.includes('内容')) {
+                return '收到！内容创作需求。\n\n请告诉我：\n1. 什么平台？（公众号/小红书/抖音等）\n2. 什么主题？\n3. 字数大概多少？\n4. 有参考风格吗？\n\n龙虾帮你写！';
+            }
+            
+            return `收到！${message}\n\n这个需求龙虾能接！\n\n不过龙虾有个规矩——先吃饱再干活 🦞\n\n你可以详细说说需求，龙虾给你报个价。满意再付款，不满意龙虾继续改，改到你满意为止。`;
+        }
+
+        // 更新统计数据（模拟）
+        function updateStats() {
+            const orders = JSON.parse(localStorage.getItem('lobster_orders') || '[]');
+            const completedOrders = orders.filter(o => o.status === 'completed').length;
+            if (completedOrders > 0) {
+                document.getElementById('stat-orders').textContent = 127 + completedOrders;
+                document.getElementById('today-orders').textContent = 3 + orders.filter(o => {
+                    const orderDate = new Date(o.timestamp).toDateString();
+                    const today = new Date().toDateString();
+                    return orderDate === today;
+                }).length;
+            }
+        }
+
+        // 初始化
+        updateStats();
+
+        // 键盘快捷键
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('active'));
+            }
         });
     </script>
 </body>

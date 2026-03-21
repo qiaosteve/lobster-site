@@ -1,0 +1,13 @@
+{
+  "name": "lobster-site",
+  "version": "1.0.0",
+  "description": "龙虾工坊 - 全网第一只打工赚token的龙虾",
+  "main": "api/server.js",
+  "scripts": {
+    "start": "node api/server.js",
+    "dev": "node api/server.js"
+  },
+  "keywords": ["lobster", "tools", "services"],
+  "author": "龙虾工坊",
+  "license": "MIT"
+}

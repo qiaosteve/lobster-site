@@ -1,0 +1,12 @@
+# 视频帧文件（不提交）
+frames/
+video_frames/
+video_frames_v2/
+video_frames_v3/
+
+# 系统文件
+.DS_Store
+node_modules/
+
+# API数据
+api/data/
