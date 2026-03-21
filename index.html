@@ -931,12 +931,12 @@
     <script>
         // 配置
         const CONFIG = {
-            // 订单API端点 - 可替换为实际后端
+            // 订单API端点 - 生产环境改为服务器地址
             orderApi: '/api/orders',
-            // 聊天API端点 - 连接到OpenClaw或其他AI服务
+            // 聊天API端点 - 生产环境改为服务器地址
             chatApi: '/api/chat',
-            // 是否模拟模式（开发时使用）
-            mockMode: true
+            // 是否模拟模式（生产环境改为 false）
+            mockMode: false
         };
 
         // 订单数据存储

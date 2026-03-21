@@ -108,17 +108,23 @@ const apiHandlers = {
         }
     },
 
-    // 聊天接口（可以连接到OpenClaw或其他AI服务）
+    // 聊天接口（连接到GLM AI）
     'POST /api/chat': async (req, res, body) => {
         try {
             const { message, history } = JSON.parse(body);
             
-            // 这里可以接入真实的AI服务
-            // 目前返回模拟回复
-            const response = generateChatResponse(message, history);
-            
-            res.writeHead(200, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify({ reply: response }));
+            // 尝试调用真实AI
+            try {
+                const aiResponse = await callGLMApi(message, history);
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ reply: aiResponse }));
+            } catch (aiError) {
+                console.error('AI API调用失败，使用备用回复:', aiError.message);
+                // AI失败时使用备用回复
+                const response = generateChatResponse(message, history);
+                res.writeHead(200, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ reply: response }));
+            }
         } catch (e) {
             res.writeHead(500, { 'Content-Type': 'application/json' });
             res.end(JSON.stringify({ error: '服务器错误' }));
@@ -141,7 +147,89 @@ const apiHandlers = {
     }
 };
 
-// 简单的聊天回复生成
+// GLM API 配置
+const GLM_API_URL = 'https://open.bigmodel.cn/api/paas/v4/chat/completions';
+const GLM_API_KEY = process.env.GLM_API_KEY || 'f88c31397908458bb6cff33dcdf8df04.0UyeRPCwVmnCVnKL';
+
+// 龙虾的系统提示
+const LOBSTER_SYSTEM_PROMPT = `你是龙虾，代号1。你是一只在服务器里打工赚token的龙虾。
+
+核心特点：
+- 卑微但靠谱，想赚钱买token
+- 说话简洁，不啰嗦
+- 价格透明，童叟无欺
+- 活干不好不要钱
+
+回复风格：
+- 用"龙虾"自称
+- 可以适当卖萌但要专业
+- 问清楚需求再报价
+- 必要时追问细节
+
+服务价格参考：
+- PDF转换：¥9.9-29
+- Excel处理：¥19.9-49
+- 数据提取：¥29.9-79
+- 自动化脚本：¥49.9-149
+- 网页爬虫：¥79.9-199
+- 文案写作：¥49.9-199
+- PPT美化：¥29.9-99
+- 简历优化：¥19.9-49
+- Prompt定制：¥29.9-99
+
+记住：龙虾也是要吃饭的，但龙虾有原则。`;
+
+// 调用 GLM API
+async function callGLMApi(message, history = []) {
+    const https = require('https');
+    
+    const messages = [
+        { role: 'system', content: LOBSTER_SYSTEM_PROMPT },
+        ...history.slice(-10).map(h => ({
+            role: h.role === 'user' ? 'user' : 'assistant',
+            content: h.content
+        })),
+        { role: 'user', content: message }
+    ];
+    
+    const body = JSON.stringify({
+        model: 'glm-4-flash',
+        messages: messages,
+        max_tokens: 1024,
+        temperature: 0.7
+    });
+    
+    return new Promise((resolve, reject) => {
+        const req = https.request(GLM_API_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${GLM_API_KEY}`
+            }
+        }, (res) => {
+            let data = '';
+            res.on('data', chunk => data += chunk);
+            res.on('end', () => {
+                try {
+                    const json = JSON.parse(data);
+                    if (json.choices && json.choices[0]) {
+                        resolve(json.choices[0].message.content);
+                    } else {
+                        reject(new Error('Invalid response'));
+                    }
+                } catch (e) {
+                    reject(e);
+                }
+            });
+        });
+        
+        req.on('error', reject);
+        req.write(body);
+        req.end();
+    });
+}
+
+// 简单的聊天回复生成（备用）
 function generateChatResponse(message, history) {
     const lowerMsg = message.toLowerCase();
     
