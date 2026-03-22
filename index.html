@@ -473,6 +473,16 @@
             </div>
 
             <div class="services-grid">
+                <!-- 🔥 核心服务：OpenClaw安装 -->
+                <div class="service-card" onclick="openOrderModal('OpenClaw安装部署', '一站式安装配置OpenClaw，打通微信/Telegram/钉钉等平台', 199)" style="border: 2px solid var(--gold); background: rgba(245, 158, 11, 0.05);">
+                    <div class="service-icon">🚀</div>
+                    <h3 style="color: var(--gold);">🔥 OpenClaw安装部署</h3>
+                    <p>一站式安装配置OpenClaw AI助手，打通微信/Telegram/钉钉等平台，让AI24小时为你打工</p>
+                    <div class="real-case" style="color: var(--gold);">⚡ 个人AI助理 | 企业客服 | 自动化运维</div>
+                    <div class="price" style="font-size: 1.2rem;">¥199 起</div>
+                    <span class="order-btn" style="background: var(--gold);">🔥 热门下单</span>
+                </div>
+
                 <!-- 文档处理 -->
                 <div class="service-card" onclick="openOrderModal('PDF转换', 'PDF转Word/Excel，批量转换，保留格式', 19.9)">
                     <div class="service-icon">📄</div>
@@ -551,8 +561,35 @@
                 </div>
 
                 <!-- AI应用 -->
-                <div class="service-card" onclick="openOrderModal('Prompt定制', '定制AI对话提示词', 49.9)">
+                <div class="service-card" onclick="openOrderModal('AI客服搭建', '搭建企业微信/钉钉AI客服机器人', 299)" style="background: rgba(220, 38, 38, 0.05);">
                     <div class="service-icon">🤖</div>
+                    <h3>🤖 AI客服搭建</h3>
+                    <p>搭建企业微信/钉钉AI客服，24小时自动回复，知识库定制</p>
+                    <div class="real-case">⚡ 电商客服 | 企业咨询 | 智能问答</div>
+                    <div class="price">¥299 起</div>
+                    <span class="order-btn">立即下单</span>
+                </div>
+
+                <div class="service-card" onclick="openOrderModal('网站/小程序开发', '企业官网、展示型小程序开发', 499)">
+                    <div class="service-icon">🌐</div>
+                    <h3>网站/小程序开发</h3>
+                    <p>企业官网、展示型小程序、H5活动页开发</p>
+                    <div class="real-case">📊 企业官网、产品展示页、活动落地页</div>
+                    <div class="price">¥499 起</div>
+                    <span class="order-btn">立即下单</span>
+                </div>
+
+                <div class="service-card" onclick="openOrderModal('数据分析报告', '数据清洗、可视化、分析报告输出', 199)">
+                    <div class="service-icon">📈</div>
+                    <h3>数据分析报告</h3>
+                    <p>数据清洗、可视化图表、分析报告输出</p>
+                    <div class="real-case">📊 销售分析、用户画像、运营数据报告</div>
+                    <div class="price">¥199 起</div>
+                    <span class="order-btn">立即下单</span>
+                </div>
+
+                <div class="service-card" onclick="openOrderModal('Prompt定制', '定制AI对话提示词', 49.9)">
+                    <div class="service-icon">💡</div>
                     <h3>Prompt定制</h3>
                     <p>定制AI对话提示词，让AI更好为你服务</p>
                     <div class="real-case">📊 客服机器人、写作助手、代码辅助</div>
@@ -861,10 +898,10 @@
                     <button onclick="sendChatMessage()" style="background: var(--lobster-red); border: none; border-radius: 8px; padding: 0.8rem 1.5rem; color: white; cursor: pointer; font-weight: bold;">发送</button>
                 </div>
                 <div style="margin-top: 0.8rem; display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                    <button onclick="quickChat('我想安装OpenClaw')" style="background: rgba(245, 158, 11, 0.2); border: 1px solid var(--gold); border-radius: 20px; padding: 0.4rem 0.8rem; color: var(--gold); font-size: 0.85rem; cursor: pointer; font-weight: bold;">🔥 OpenClaw安装</button>
                     <button onclick="quickChat('PDF转Word')" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 0.4rem 0.8rem; color: var(--text-secondary); font-size: 0.85rem; cursor: pointer;">PDF转Word</button>
                     <button onclick="quickChat('Excel数据处理')" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 0.4rem 0.8rem; color: var(--text-secondary); font-size: 0.85rem; cursor: pointer;">Excel处理</button>
-                    <button onclick="quickChat('写个自动化脚本')" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 0.4rem 0.8rem; color: var(--text-secondary); font-size: 0.85rem; cursor: pointer;">自动化脚本</button>
-                    <button onclick="quickChat('帮我写文案')" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 0.4rem 0.8rem; color: var(--text-secondary); font-size: 0.85rem; cursor: pointer;">写文案</button>
+                    <button onclick="quickChat('搭建AI客服')" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 0.4rem 0.8rem; color: var(--text-secondary); font-size: 0.85rem; cursor: pointer;">AI客服</button>
                 </div>
             </div>
         </div>
@@ -1125,13 +1162,14 @@
             const thinkingId = addChatMessage('🦞 思考中...', 'lobster');
 
             if (CONFIG.mockMode) {
-                // 模拟回复
+                // 模拟回复 - 带随机延迟，更像真人
+                const delay = 800 + Math.random() * 1200; // 0.8-2秒延迟
                 setTimeout(() => {
                     removeChatMessage(thinkingId);
                     const response = getMockResponse(message);
                     addChatMessage(response, 'lobster');
                     chatHistory.push({ role: 'assistant', content: response });
-                }, 1000);
+                }, delay);
             } else {
                 // 实际API调用
                 try {
@@ -1207,6 +1245,26 @@
             }
             
             return `收到！${message}\n\n这个需求龙虾能接！\n\n不过龙虾有个规矩——先吃饱再干活 🦞\n\n你可以详细说说需求，龙虾给你报个价。满意再付款，不满意龙虾继续改，改到你满意为止。`;
+        }
+        
+        // 在聊天框中显示支付二维码
+        function showPaymentQRInChat() {
+            const container = document.getElementById('chat-messages');
+            const div = document.createElement('div');
+            div.style.maxWidth = '85%';
+            div.style.padding = '1rem';
+            div.style.borderRadius = '12px';
+            div.style.background = 'rgba(245, 158, 11, 0.1)';
+            div.style.border = '1px solid var(--gold)';
+            div.innerHTML = `
+                <div style="text-align: center;">
+                    <p style="color: var(--gold); font-weight: bold; margin-bottom: 0.5rem;">💳 支付二维码</p>
+                    <img src="assets/payment-qr.jpg" alt="支付二维码" style="width: 150px; height: 150px; border-radius: 8px; background: white; padding: 5px;" onerror="this.src='wechat-qr.jpg'">
+                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-top: 0.5rem;">扫码支付后，告诉龙虾已付款</p>
+                </div>
+            `;
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
         }
 
         // 更新统计数据（模拟）
